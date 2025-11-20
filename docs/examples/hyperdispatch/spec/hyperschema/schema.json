@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "schema": [
+    {
+      "name": "request1",
+      "namespace": "example",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "field1",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "field2",
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "request2",
+      "namespace": "example",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "field1",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "field2",
+          "type": "uint",
+          "version": 1
+        }
+      ]
+    }
+  ]
+}

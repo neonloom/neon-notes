@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "module": {
+    "name": "@neonloom/viewer-elementary",
+    "kind": "viewer",
+    "namespace": "neonloom/viewer/elementary",
+    "pear": {
+      "key": "pear://example-elementary",
+      "channel": "elementary-dev",
+      "entrypoints": ["index.html"],
+      "runtime": "node",
+      "bareShims": [],
+      "assets": {
+        "count": 2,
+        "totalBytes": 18635,
+        "threshold": 200000
+      }
+    },
+    "artifact": {
+      "hyperdrive": null
+    }
+  },
+  "capabilities": {
+    "requires": ["caps://driver/hyperbee/connect"],
+    "grants": ["caps://viewer/elementary/use"]
+  },
+  "interfaces": {
+    "ports": ["svc:feature/kv/1"],
+    "rpc": ["renderDashboard"]
+  },
+  "compat": {
+    "coreVersion": ">=1.0.0",
+    "node": ">=20",
+    "bare": "^1.0.0"
+  },
+  "docs": {
+    "readme": "https://example.com/docs/elementary/README.md",
+    "changelog": "https://example.com/docs/elementary/CHANGELOG.md"
+  },
+  "signing": {
+    "publisher": "ed25519:example-publisher",
+    "signature": "example-signature",
+    "timestamp": 1740000000000
+  },
+  "notes": [
+    "Example viewer entry to exercise catalog tooling." 
+  ]
+}

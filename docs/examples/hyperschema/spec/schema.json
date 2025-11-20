@@ -1,0 +1,53 @@
+{
+  "version": 2,
+  "schema": [
+    {
+      "name": "basic-alias",
+      "namespace": "namespace-2",
+      "alias": "string",
+      "version": 1
+    },
+    {
+      "name": "basic-bools",
+      "namespace": "namespace-1",
+      "compact": true,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "bool1",
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "bool2",
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "bool3",
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "bool4",
+          "type": "bool",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "record",
+      "namespace": "demo",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "uint",
+          "version": 2
+        }
+      ]
+    }
+  ]
+}

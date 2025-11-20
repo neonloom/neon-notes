@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "module": {
+    "name": "@neonloom/viewer-hyperquill",
+    "kind": "viewer",
+    "namespace": "neonloom/viewer/hyperquill",
+    "pear": {
+      "key": "pear://example-hyperquill",
+      "channel": "hyperquill-dev",
+      "entrypoints": ["index.html"],
+      "runtime": "node",
+      "bareShims": ["bare-readline", "bare-tty"],
+      "assets": {
+        "count": 8,
+        "totalBytes": 149770,
+        "threshold": 200000
+      }
+    },
+    "artifact": {
+      "hyperdrive": null
+    }
+  },
+  "capabilities": {
+    "requires": ["caps://feature/story-registry/connect"],
+    "grants": ["caps://viewer/hyperquill/use"]
+  },
+  "interfaces": {
+    "ports": ["svc:feature/story-registry/1"],
+    "rpc": ["publishFragment", "resolveGrant"]
+  },
+  "compat": {
+    "coreVersion": ">=1.0.0",
+    "node": ">=20",
+    "bare": "^1.0.0"
+  },
+  "docs": {
+    "readme": "https://example.com/docs/hyperquill/README.md",
+    "changelog": "https://example.com/docs/hyperquill/CHANGELOG.md"
+  },
+  "signing": {
+    "publisher": "ed25519:example-publisher",
+    "signature": "example-signature",
+    "timestamp": 1740000000000
+  },
+  "notes": [
+    "Example catalog entry generated from docs/examples assets.",
+    "Assets metrics sourced from scripts/viewer-smoke.mjs reports."
+  ]
+}
