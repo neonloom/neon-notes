@@ -1,0 +1,15 @@
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+
+# Node/npm artifacts (examples)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Build/cache
+dist/
+coverage/
+.cache/
+tmp/
