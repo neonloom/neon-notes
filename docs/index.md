@@ -51,14 +51,20 @@ Use this file when you need a quick jump to the right asset, whether you are sca
   - [docs/reference/poo-continuity-framework.md](reference/poo-continuity-framework.md)
   - [docs/reference/poo-simulation-runtime-api.md](reference/poo-simulation-runtime-api.md)
 - **Dagify**
+  - [docs/reference/dagify/quickstart.md](reference/dagify/quickstart.md)
   - [docs/reference/dagify/core-api.md](reference/dagify/core-api.md)
   - [docs/reference/dagify/node-catalog.md](reference/dagify/node-catalog.md)
   - [docs/reference/dagify/node-behavior.md](reference/dagify/node-behavior.md)
+  - [docs/reference/dagify/best-practices.md](reference/dagify/best-practices.md)
+  - [docs/reference/dagify/observability-and-debugging.md](reference/dagify/observability-and-debugging.md)
   - [docs/reference/dagify/activity-thresholding.md](reference/dagify/activity-thresholding.md)
   - [docs/reference/dagify/side-effects.md](reference/dagify/side-effects.md)
   - [docs/reference/dagify/unbatched.md](reference/dagify/unbatched.md)
   - [docs/reference/dagify/encodings-and-types.md](reference/dagify/encodings-and-types.md)
   - [docs/reference/dagify/encodings.md](reference/dagify/encodings.md)
+  - [docs/reference/dagify/effect.md](reference/dagify/effect.md)
+  - [docs/reference/dagify/frp-helpers.md](reference/dagify/frp-helpers.md)
+  - [docs/reference/dagify/execution-nodes.md](reference/dagify/execution-nodes.md)
   - [docs/reference/dagify/diff-operator.md](reference/dagify/diff-operator.md)
   - [docs/reference/dagify/diff-operator-and-diff-composite-getter.md](reference/dagify/diff-operator-and-diff-composite-getter.md)
   - [docs/reference/dagify/integration.md](reference/dagify/integration.md)
@@ -75,6 +81,7 @@ Use this file when you need a quick jump to the right asset, whether you are sca
   - [docs/reference/dagify/singular-versus-structured-dependencies.md](reference/dagify/singular-versus-structured-dependencies.md)
   - [docs/reference/dagify/sink-node.md](reference/dagify/sink-node.md)
   - [docs/reference/dagify/trigger-node.md](reference/dagify/trigger-node.md)
+  - [docs/reference/dagify/agent-primer.md](reference/dagify/agent-primer.md)
   - [docs/reference/dagify/types.md](reference/dagify/types.md)
   - [docs/reference/dagify/types-vs-encodings.md](reference/dagify/types-vs-encodings.md)
   - [docs/reference/dagify/cheatsheet.md](reference/dagify/cheatsheet.md)
@@ -143,10 +150,13 @@ Use this file when you need a quick jump to the right asset, whether you are sca
 - [docs/meta/authoring-guide.md](meta/authoring-guide.md)
 - [docs/meta/documentation-inbox.md](meta/documentation-inbox.md)
 - [docs/meta/llm-usage.md](meta/llm-usage.md)
+- [docs/meta/agent-directive.md](meta/agent-directive.md) — Dagify-first guardrails for coding assistants.
 - [docs/meta/retrieval-playbook.md](meta/retrieval-playbook.md) — Keep prompt/context bundles lean.
 - [docs/templates/doc-template.md](templates/doc-template.md)
 - [docs/templates/context-card.md](templates/context-card.md) — Reusable header for quick-scanning docs.
 - [docs/templates/mastering-dagify-prompt.md](templates/mastering-dagify-prompt.md) — Prompt template for Dagify deep dives.
+- [docs/templates/agent-directive-prompt.md](templates/agent-directive-prompt.md) — Drop-in prompt header for coding assistants.
+- [docs/templates/agent-directive-checklist.md](templates/agent-directive-checklist.md) — Drop-in checklist to enforce the agent directive in any repo.
 - [../Agents.md](../Agents.md) — Agent operations and inbox workflow.
 
 Keep this index updated whenever files move or new material arrives so that tooling always has a single source of truth.

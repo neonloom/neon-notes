@@ -2,13 +2,20 @@
 title: Agent Operations Guide
 summary: Shared playbook so every assistant knows how to process the documentation inbox and keep docs synced across projects.
 tags: [agents, process, meta]
-updated: 2025-10-18
+updated: 2025-11-21
 audience: llm
 ---
 
 # Agent Operations Guide
 
 This repository is the canonical knowledge base for all Hyper projects and automation agents. Follow this guide each time you pair with a human contributor, file new material, or respond to incoming requests.
+
+## Agent Directive Adoption
+- Treat [docs/meta/agent-directive.md](docs/meta/agent-directive.md) as mandatory guardrails for any coding or refactor task; load it into the active prompt before writing code.
+- Use the drop-in prompt header at [docs/templates/agent-directive-prompt.md](docs/templates/agent-directive-prompt.md) plus the checklist in [docs/templates/agent-directive-checklist.md](docs/templates/agent-directive-checklist.md) for every project.
+- If the directive is missing from context, pause and bring it in—do not proceed without it.
+- When working in other repos, copy or link the directive and the checklist in `docs/templates/agent-directive-checklist.md` so every project enforces the same Dagify-first rules.
+- Push back on requests that conflict with the directive unless the human explicitly overrides it.
 
 ## Daily Workflow
 1. Skim `docs/index.md` to refresh the taxonomy and confirm where each document lives.
@@ -36,3 +43,4 @@ This repository is the canonical knowledge base for all Hyper projects and autom
 - Review `docs/meta/llm-usage.md` for additional pairing guidelines.
 - Use `inbox/README.md` as the checklist while triaging unfiled material.
 - Keep `docs/index.md` current so humans and agents always land on the right file.
+- Attach the Agent Directive checklist to any new project onboarding doc so compliance is automatic.
