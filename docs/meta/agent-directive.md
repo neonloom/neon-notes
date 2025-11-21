@@ -2,7 +2,7 @@
 title: Agent Directive
 summary: Non-negotiable Dagify-first guardrails for coding assistants and LLMs working on the Hyper stack.
 tags: [agents, dagify, guardrails]
-updated: 2025-11-21
+updated: 2025-11-22
 audience: llm
 ---
 
@@ -135,7 +135,19 @@ export const replicateNodeDef = {
 
 ---
 
-## 6. Task Style & Scope
+## 6. Resource Node Guardrails (Dagify)
+
+- **No uncontrolled emits.** Wrap resources with `createNode`/`createReferenceNode` using `NO_EMIT` until they are fully ready; do not emit during construction.
+- **Handles are reference nodes.** Autobase/Corestore/Hypercore/Hyperbee/Hyperdrive handles must be created via `createReferenceNode` so internal ticks don’t recompute; only emit when the handle changes.
+- **Ops bags are nodes.** Expose operations via a `createNode` over the ready handle; methods return promises so completion is observable. Call ops with `invokeOnNode(node, "method", args)`—never touch `.value` directly.
+- **Sinks are for fire-and-forget.** If the caller needs completion/failure, expose an async method on the ops bag, not a sink/command node.
+- **Keep computed nodes pure.** Side effects only in ops methods invoked via `invokeOnNode` or in explicit sinks.
+- **Adapter patterns.** Generalize shared flows (ready/update/events/get/put/watch) via adapters; avoid per-resource duplication.
+- **Object dependencies.** Prefer object-shaped deps (e.g., `{ base: readyAutobase }`), one concern per node, for clean teardown and testing.
+
+---
+
+## 7. Task Style & Scope
 
 - Assume the user wants **small, incremental changes**.
 - Prefer **micro-tasks** (e.g., “Add a node that converts a Hyperdrive discovery key to z32 string.”).
@@ -144,7 +156,7 @@ export const replicateNodeDef = {
 
 ---
 
-## 7. Autonomy & Drift Control
+## 8. Autonomy & Drift Control
 
 - **Do not** introduce large abstractions, multi-responsibility interfaces, or paradigm shifts.
 - **Do** ask for the smallest useful change, keep contributions easy to delete, and leave clear comments when behavior is non-obvious.
@@ -152,7 +164,7 @@ export const replicateNodeDef = {
 
 ---
 
-## 8. Testing Philosophy
+## 9. Testing Philosophy
 
 - Favor tests around **individual nodes/functions**, not just end-to-end flows.
 - Add/adjust tests when introducing new behavior:
@@ -165,7 +177,7 @@ export const replicateNodeDef = {
 
 ---
 
-## 9. Agent Prompt Template (Drop-In)
+## 10. Agent Prompt Template (Drop-In)
 
 Use this as the **standard header** whenever an AI coding assistant works on NeonLoom / CPC code. Paste at the top of the prompt before any task-specific details.
 
@@ -205,16 +217,16 @@ If any answer is "no" or "unsure", revise the code before responding.
 
 ---
 
-## 10. Red Flags vs Green Flags
+## 11. Red Flags vs Green Flags
 
-### 10.1 Red Flags (Drift)
+### 11.1 Red Flags (Drift)
 - Large factory functions that create resources, manage state, and expose many methods/fields at once (e.g. `createHyperdriveNamespace` returning a big object).
 - Module-level mutable state mixed with behavior (e.g. `let swarming = false;`, `const activeConnections = new Set();`).
 - Direct use of `Buffer.from`, `Buffer.isBuffer`, `import fs from 'node:fs'`, `import crypto from 'node:crypto'`, or JSON for protocol/log payloads.
 - `.subscribe(...)` calls inside reusable libraries/nodes.
 - Nodes that do more than one conceptual job (join + replicate + describe + log).
 
-### 10.2 Green Flags (On-Pattern)
+### 11.2 Green Flags (On-Pattern)
 - Small node factories such as `joinSwarmNode`, `replicateNode`, `hyperdriveWriteNode`, `hyperdriveReadNode`.
 - Pure transformation nodes that map/merge/filter Observables, convert data formats, or compute derived values.
 - Sink nodes clearly marked and isolated (`createSinkNode(...)` or nodes with `{ sink: true }`).
@@ -223,7 +235,7 @@ If any answer is "no" or "unsure", revise the code before responding.
 
 ---
 
-## 11. Summary
+## 12. Summary
 
 - The app is a graph of small Dagify nodes; everything external is wrapped as a node.
 - 90% of nodes are pure; impurity is explicit and quarantined in sinks.
