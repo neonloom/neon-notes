@@ -40,6 +40,7 @@ If you are uncertain, **prefer doing less** and staying within the established p
 6. **Async normalization.** Promises, thenables, event emitters → converted to Observables with `$` suffix.
 7. **Naming conventions.** `$` suffix for Observables. Node factories end with `Node`. Node defs follow consistent `inputs`/`outputs/create()` shape.
 8. **No architectural refactors.** Do not shift paradigms. Do not introduce new frameworks. Follow the existing FRP/DAG/node-centric design faithfully.
+9. **Every argument is a node.** Factories and option bags must receive nodes, not plain values. Any raw value must be wrapped upstream before reaching library code. Library code should fail fast on non-nodes—no implicit `ensureNode` or auto-wrapping helpers.
 
 ---
 
@@ -75,7 +76,7 @@ createNode(n => {
 ```
 
 ### 3.4 Node Factories
-Each behavior is a **separate factory function** that returns a Dagify node.
+Each behavior is a **separate factory function** that returns a Dagify node. Factories themselves are nodes whose value resolves to a function; errors otherwise. No function literals at call sites—callers pass a factory node.
 
 ```js
 export const replicateNode = (resourceNode, connection$) =>
@@ -112,6 +113,7 @@ export const replicateNodeDef = {
 - Keep `createReferenceNode` callbacks small and pure; interact with external resources but avoid allocating new architectures.
 - Avoid clever parameter shadowing (e.g. reusing `connection$` names).
 - When asked to add new behavior, **add a new node def** instead of extending existing ones unless explicitly instructed otherwise.
+- UI adapters (Svelte/RxJS) live at the edge; Svelte stores/Observables should only see Dagify nodes. No `.subscribe()` in library code—use sink nodes or app-level subscriptions.
 
 ---
 
@@ -132,6 +134,7 @@ export const replicateNodeDef = {
 - Treat Hypercore / Hyperbee / Corestore / Autobase / Hyperswarm / Hyperdrive as **pluggable resources**. Lifecycle lives in small nodes, not uber-constructs.
 - **Hyperswarm:** create inside a node factory; expose events as streams (`connection$`, `onClose$`, `onError$` via `fromEvent` + RxJS).
 - **Hyperdrive & replication:** never monolithic helpers (e.g. `createHyperdriveNamespace`). Split into: storage dir node, corestore node, hyperdrive node, write/read nodes, replication node, swarm join node, swarm status node.
+- **Bounded by default:** queues must set `maxQueueLength`; list/read streams must enforce `limit`/`range`; unbounded operations are banned unless explicitly justified and documented.
 
 ---
 
@@ -144,6 +147,9 @@ export const replicateNodeDef = {
 - **Keep computed nodes pure.** Side effects only in ops methods invoked via `invokeOnNode` or in explicit sinks.
 - **Adapter patterns.** Generalize shared flows (ready/update/events/get/put/watch) via adapters; avoid per-resource duplication.
 - **Object dependencies.** Prefer object-shaped deps (e.g., `{ base: readyAutobase }`), one concern per node, for clean teardown and testing.
+- **No implicit wrapping.** If an API needs a node, the caller must supply one; fail fast on non-nodes—no `ensureNode` wrappers inside libraries.
+- **Lifecycle discipline.** Resource nodes register finalize/cleanup hooks, avoid global state, and gate async handles via ready/withReady before emitting.
+- **Testing guardrails.** Any node that queues/limits or accepts external inputs must have tests covering overflow/invalid range and node-type validation.
 
 ---
 
